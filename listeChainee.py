@@ -64,17 +64,3 @@ class Liste:
             t.append(l.valeur)
             l = l.suivante
         return t
-
-    def passable(self):
-        """Cette fonction renvoie un booléen True si tout les élmts de la liste on l'attribut traversable a True"""
-        for k in self:
-            if not k.traversable:
-                return False
-        return True
-    
-    def passableB(self):
-        """Cette fonction renvoie un booléen True si tout les elmts de la liste on l'attributs traversableB a True"""
-        for k in self:
-            if not k.traversableB:
-                return False
-        return True

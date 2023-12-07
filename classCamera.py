@@ -23,22 +23,35 @@ class Camera:
         ####################" affichage" ########################
         """Trouver distance entre les 2 points, calculer angle + trigonométrie"""
         #distance entre caméra et points
+        newCollideLeft = []
         for point in CollideLeft:
             a = self.coords[0] - point[0]
             b = self.coords[1] - point[1]
             d = math.sqrt(a*a+b*b)
-            
 
+            angleEntreOrdonneeEtDroite = math.atan((a)/b)
+
+            angle = angleEntreOrdonneeEtDroite+self.game.player.angle
+            oppose = math.sin(angle)*d
+            adjacent = math.cos(angle)*d
+            newCollideLeft.append((adjacent, oppose))
         
-    
+        newCollideRight = []
+        for point in CollideRight:
+            a = self.coords[0] - point[0]
+            b = self.coords[1] - point[1]
+            d = math.sqrt(a*a+b*b)
 
+            angleEntreOrdonneeEtDroite = math.atan((a)/b)
 
+            angle = angleEntreOrdonneeEtDroite+self.game.player.angle
+            oppose = math.sin(angle)*d
+            adjacent = math.cos(angle)*d
+            newCollideRight.append((adjacent, oppose))
 
-
-
-
-
-
-
-        
-        
+        oX,oY = newCollideLeft[0]
+        for x,y in newCollideLeft[1:]:
+            if(y>0):
+                pygame.draw.line(self.screen,"black", (oX, oY), (x, y))
+            oX,oY = x,y
+        pygame.draw.line(self.screen,"black", (oX, oY), (newCollideLeft[0][0], newCollideLeft[0][1]))

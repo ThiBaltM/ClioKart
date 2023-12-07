@@ -28,6 +28,9 @@ class Road:
         #draw caméra
         pygame.draw.circle(self.screen, "blue", (self.game.camera.coords[0]/4, self.game.camera.coords[1]/4), 3)
 
+
+
         
+
 
 

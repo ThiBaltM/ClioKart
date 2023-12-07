@@ -49,9 +49,17 @@ class Camera:
             adjacent = math.cos(angle)*d
             newCollideRight.append((adjacent, oppose))
 
+        #affichage de la carte
         oX,oY = newCollideLeft[0]
         for x,y in newCollideLeft[1:]:
             if(y>0):
-                pygame.draw.line(self.screen,"black", (oX, oY), (x, y))
+                pygame.draw.line(self.screen,"blue", (oX, oY), (x, y))
             oX,oY = x,y
-        pygame.draw.line(self.screen,"black", (oX, oY), (newCollideLeft[0][0], newCollideLeft[0][1]))
+        pygame.draw.line(self.screen,"blue", (oX, oY), (newCollideLeft[0][0], newCollideLeft[0][1]))
+
+        oX,oY = newCollideRight[0]
+        for x,y in newCollideRight[1:]:
+            if(y>0):
+                pygame.draw.line(self.screen,"red", (oX, oY), (x, y))
+            oX,oY = x,y
+        pygame.draw.line(self.screen,"green", (oX, oY), (newCollideRight[0][0], newCollideRight[0][1]))

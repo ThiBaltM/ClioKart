@@ -10,7 +10,7 @@ class Car:
         self.game = game
         self.image = pygame.transform.scale(pygame.image.load("assets/clio.png"),(100,100))
         self.coords = (564,595)
-        self.angle = 0
+        self.angle = -math.pi/4
         self.speed =0
 
 

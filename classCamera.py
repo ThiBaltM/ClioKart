@@ -11,6 +11,9 @@ class Camera:
         self.game = game
         self.coords = (0,0)
         self.angle = 0
+        self.horizon=1/3*self.screen.get_height()
+        self.horizonZoom = 1.5
+        self.frontZoom = 6
 
 
 
@@ -18,10 +21,13 @@ class Camera:
     def update(self):
         """Cette fonction met a jour les evenement divers pouvant avoir lieux"""
         def calculPosForCameraDisplay(x,y):
-            return (self.screen.get_width()/2 + x,self.screen.get_height()-y)
+            coef = self.horizonZoom+ (self.screen.get_height()-y)*((self.frontZoom - self.horizonZoom)/self.screen.get_height())
+
+            nx = self.screen.get_width()/2 + x*coef
+            ny = y*self.horizon/self.screen.get_height()
+            return nx,self.screen.get_height()-ny
         
         self.coords = self.game.player.coords[0] - math.cos(self.game.player.angle)*100, self.game.player.coords[1] + math.sin(self.game.player.angle)*100
-        self.screen.blit(self.game.player.image, (self.screen.get_width() /2 - self.game.player.image.get_width()/2,500))
 
         ####################" affichage "########################
         #distance entre caméra et points

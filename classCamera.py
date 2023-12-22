@@ -11,23 +11,17 @@ class Camera:
         self.game = game
         self.coords = (0,0)
         self.angle = 0
-        self.horizon=1/3*self.screen.get_height()
-        self.horizonZoom = 1.5
-        self.frontZoom = 6
+        self.distanceWithCar = 100
+        
 
 
 
                   
     def update(self):
         """Cette fonction met a jour les evenement divers pouvant avoir lieux"""
-        def calculPosForCameraDisplay(x,y):
-            coef = self.horizonZoom+ (self.screen.get_height()-y)*((self.frontZoom - self.horizonZoom)/self.screen.get_height())
-
-            nx = self.screen.get_width()/2 + x*coef
-            ny = y*self.horizon/self.screen.get_height()
-            return nx,self.screen.get_height()-ny
         
-        self.coords = self.game.player.coords[0] - math.cos(self.game.player.angle)*100, self.game.player.coords[1] + math.sin(self.game.player.angle)*100
+        
+        self.coords = self.game.player.coords[0] - math.cos(self.game.player.angle)*self.distanceWithCar, self.game.player.coords[1] + math.sin(self.game.player.angle)*self.distanceWithCar
 
         ####################" affichage "########################
         #distance entre caméra et points
@@ -60,12 +54,12 @@ class Camera:
         #affichage de la carte
         oX,oY = newCollideLeft[0]
         for x,y in newCollideLeft[1:]:
-            pygame.draw.line(self.screen,"blue", calculPosForCameraDisplay(oX, oY), calculPosForCameraDisplay(x, y))
+            pygame.draw.line(self.screen,(99, 84, 44), self.game.calculPosForCameraDisplay(oX, oY), self.game.calculPosForCameraDisplay(x, y), 5)
             oX,oY = x,y
-        pygame.draw.line(self.screen,"blue", calculPosForCameraDisplay(oX, oY), calculPosForCameraDisplay(newCollideLeft[0][0], newCollideLeft[0][1]))
+        pygame.draw.line(self.screen,(99, 84, 44), self.game.calculPosForCameraDisplay(oX, oY), self.game.calculPosForCameraDisplay(newCollideLeft[0][0], newCollideLeft[0][1]),5)
 
         oX,oY = newCollideRight[0]
         for x,y in newCollideRight[1:]:
-            pygame.draw.line(self.screen,"red", calculPosForCameraDisplay(oX, oY), calculPosForCameraDisplay(x, y))
+            pygame.draw.line(self.screen,(99, 84, 44), self.game.calculPosForCameraDisplay(oX, oY), self.game.calculPosForCameraDisplay(x, y),5)
             oX,oY = x,y
-        pygame.draw.line(self.screen,"red", calculPosForCameraDisplay(oX, oY), calculPosForCameraDisplay(newCollideRight[0][0], newCollideRight[0][1]))
+        pygame.draw.line(self.screen,(99, 84, 44), self.game.calculPosForCameraDisplay(oX, oY), self.game.calculPosForCameraDisplay(newCollideRight[0][0], newCollideRight[0][1]),5)

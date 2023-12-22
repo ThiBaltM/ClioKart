@@ -19,12 +19,20 @@ class Game:
         self.road = Road(self)
         self.camera = Camera(self.screen, self)
 
+        ##### camera paramaters #####
+        self.horizon=1/3*self.screen.get_height()
+        self.horizonZoom = 1.5
+        self.frontZoom = 6
+
+        #background
+        self.background=pygame.transform.scale(pygame.image.load("assets/background.png"),(self.screen.get_width(),self.screen.get_height()-self.horizon))
                   
     def update(self):
         """Cette fonction met a jour les evenement divers pouvant avoir lieux"""
-        pygame.draw.rect(self.screen, "white", pygame.Rect(0,0,self.screen.get_width(), self.screen.get_height()))
+        pygame.draw.rect(self.screen, (210, 211, 156), pygame.Rect(0,0,self.screen.get_width(), self.screen.get_height()))
         self.camera.update()
         self.player.update()
+        self.screen.blit(self.background,(0,0))
         if self.pressed[pygame.K_LEFT]:
             self.player.left()
         if(self.pressed[pygame.K_RIGHT]):
@@ -43,7 +51,12 @@ class Game:
         self.compteur += 1
 
 
+    def calculPosForCameraDisplay(self,x,y):
+        coef = self.horizonZoom+ (self.screen.get_height()-y)*((self.frontZoom - self.horizonZoom)/self.screen.get_height())
 
+        nx = self.screen.get_width()/2 + x*coef
+        ny = y*self.horizon/self.screen.get_height()
+        return nx,self.screen.get_height()-ny
 
         
         

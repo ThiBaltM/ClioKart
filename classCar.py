@@ -11,7 +11,8 @@ class Car:
         self.image = pygame.transform.scale(pygame.image.load("assets/clio.png"),(100,100))
         self.coords = [564,595]
         self.angle = 0
-        self.speed =5
+        self.speed =0
+        self.maxSpeed=8
 
 
 
@@ -32,12 +33,12 @@ class Car:
         self.angle -= math.pi/128
     
     def accelerate(self):
-        if(self.speed < 5):
-            self.speed +=0.1
+        if(self.speed < self.maxSpeed):
+            self.speed +=0.05
     
     def brake(self):
         if(self.speed>0):
-            self.speed -=0.2
+            self.speed -=0.1
             if(self.speed < 0):
                 self.speed = 0
         

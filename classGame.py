@@ -22,10 +22,10 @@ class Game:
         ##### camera paramaters #####
         self.horizon=1/3*self.screen.get_height()
         self.horizonZoom = 1.5
-        self.frontZoom = 6
+        self.frontZoom = 3
 
         #background
-        self.background=pygame.transform.scale(pygame.image.load("assets/background.png"),(self.screen.get_width(),self.screen.get_height()-self.horizon))
+        self.background=pygame.transform.scale(pygame.image.load("assets/background.png"),(self.screen.get_width(),self.screen.get_height()/2))
                   
     def update(self):
         """Cette fonction met a jour les evenement divers pouvant avoir lieux"""
@@ -56,7 +56,7 @@ class Game:
 
         nx = self.screen.get_width()/2 + x*coef
         ny = y*self.horizon/self.screen.get_height()
-        return nx,self.screen.get_height()-ny
+        return nx,self.screen.get_height()-ny-self.screen.get_height()/6
 
         
         

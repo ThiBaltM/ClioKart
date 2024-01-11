@@ -4,6 +4,7 @@ from random import choice
 from classCar import Car
 from classRoad import Road
 from classCamera import Camera
+import math
      
 
 
@@ -43,20 +44,23 @@ class Game:
             self.player.brake()
 
         self.road.showMinimap()
-        
-
-
-
 
         self.compteur += 1
 
 
     def calculPosForCameraDisplay(self,x,y):
-        coef = self.horizonZoom+ (self.screen.get_height()-y)*((self.frontZoom - self.horizonZoom)/self.screen.get_height())
+        top_scale = 1  # Plus les points sont en haut, plus ils seront resserrés
+        bottom_scale = 0.3  # Plus les points sont en bas, moins ils seront resserrés
 
-        nx = self.screen.get_width()/2 + x*coef
-        ny = y*self.horizon/self.screen.get_height()
-        return nx,self.screen.get_height()-ny-self.screen.get_height()/6
+        if(y> self.screen.get_height()):
+            y = self.screen.get_height()
+        """
+        normalized_y = -abs(y - self.screen.get_height()) / (self.screen.get_height() * (1 - 1/3))
+        scaling_factor = top_scale + (bottom_scale - top_scale) * y
+        """
+        coef = self.horizonZoom + (self.screen.get_height() - y) * ((self.frontZoom - self.horizonZoom) / self.screen.get_height())
 
-        
-        
+        nx = self.screen.get_width() / 2 + x * coef
+        ny = y * self.horizon / self.screen.get_height() #* scaling_factor
+
+        return nx, self.screen.get_height() * (5 / 6) - ny

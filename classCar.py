@@ -20,7 +20,6 @@ class Car:
     def update(self):
         """Cette fonction met a jour les evenement divers pouvant avoir lieux"""
         x,y = self.game.calculPosForCameraDisplay(0, self.game.camera.distanceWithCar)
-        print(x,y)
         self.screen.blit(self.image, (x - self.image.get_width()/2,y-self.image.get_height()))
         self.coords[0] = self.coords[0] + math.cos(self.angle)*self.speed
         self.coords[1] = self.coords[1] + math.sin(self.angle)*-self.speed

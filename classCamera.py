@@ -11,7 +11,7 @@ class Camera:
         self.game = game
         self.coords = (0,0)
         self.angle = 0
-        self.distanceWithCar = 100
+        self.distanceWithCar = 50
         
 
 
